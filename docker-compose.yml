@@ -31,7 +31,6 @@ services:
       - zookeeper
     
   database:
-    # build: './database'
     image: 'postgres:latest'
     ports:
       - 5432:5432
@@ -54,11 +53,13 @@ services:
     networks:
       - app-tier
 
-  # producer:
-    # build: './producer'
+  producer:
+    build: './producer'
+    networks:
+      - app-tier
 
-  # streamer:
-    # build: './streamer'
+  # consumer:
+    # build: './consumer'
 
 volumes:
   zookeeper_data:
