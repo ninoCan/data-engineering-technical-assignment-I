@@ -1,0 +1,35 @@
+---
+version: '3'
+
+services:
+  # consumer:
+    # build: './consumer'
+    
+  database:
+    # build: './database'
+    image: 'postgres:latest'
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "root" ]
+      timeout: 45s
+      interval: 10s
+      retries: 10
+    restart: always
+    environment:
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      POSTGRES_DB: "${POSTGRES_DB}"
+      APP_DB_USER: "${APP_DB_USER}"
+      APP_DB_PASS: "${APP_DB_PASS}"
+      APP_DB_NAME: "${APP_DB_NAME}"
+    volumes:
+      - ./database/data/:/var/lib/postgresql/data/
+      - ./database/01-init.sh:/docker-entrypoint-initdb.d/01-init.sh
+
+  # producer:
+    # build: './producer'
+
+  # streamer:
+    # build: './streamer'
+
