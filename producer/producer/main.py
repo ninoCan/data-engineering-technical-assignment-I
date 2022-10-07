@@ -8,7 +8,7 @@ import websockets
 BITSTAMP_URL = "https://www.bitstamp.net/s/webapp/examples/live_orders_v2.html"
 CHANNEL = "live_orders_v2"
 SUBSCRIPTION_JSON = json.dumps({
-    "event": {"bts": "subscribe"},
+    "event": "bts:subscribe",
     "data": {
         "channel": CHANNEL
     }
